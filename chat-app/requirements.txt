@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+chromadb
+python-dotenv
+langchain
+langchain-chroma
+langchain-openai
+langgraph
+langsmith
+python-dotenv
+docx
+pydantic
+numpy<2.0
+psycopg2-binary

@@ -1,0 +1,9 @@
+chromadb
+langchain
+langchain-openai
+langchain-chroma
+python-docx
+dotenv
+pandas 
+openai
+numpy 

@@ -1,0 +1,41 @@
+# --- top of file (or inside `default:`) ---
+image: docker:24         # CLI container
+services:
+  - name: docker:24-dind  # Docker-in-Docker daemon
+    alias: docker         # makes DOCKER_HOST=tcp://docker:2375 work
+
+variables:
+  DOCKER_TLS_CERTDIR: ""  # disables TLS so login works
+  IMAGE_NAME: $CI_REGISTRY_IMAGE/chat-app
+# -----------------------------------------
+
+before_script:
+  - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+
+stages:
+  - build
+  - test          # NEW
+
+variables:
+  IMAGE_NAME: $CI_REGISTRY_IMAGE/chat-app
+
+before_script:
+  - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+
+build:
+  stage: build
+  image: docker:24.0-dind     # uses the DinD image the instance runner expects
+  tags: [docker]              # replace if the instance runner requires a different tag
+  script:
+    - docker build -t $IMAGE_NAME:$CI_COMMIT_SHORT_SHA .
+    - docker push $IMAGE_NAME:$CI_COMMIT_SHORT_SHA
+
+# --- NEW JOB ---
+test:
+  stage: test
+  image: node:22               # or whatever your chat app uses for tests
+  tags: [docker]               # same tag so the instance runner picks it up
+  script:
+    - npm ci                   # install dependencies
+    - npm run test             # run your unit / integration tests
+  needs: ["build"]             # waits for the image to build (optional)
