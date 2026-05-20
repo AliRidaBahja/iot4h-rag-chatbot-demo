@@ -7,7 +7,6 @@ from chromadb import HttpClient
 import numpy as np 
 
 load_dotenv()   
-load_dotenv("../../.env")                                                                                                                                          # remove in docker!!!
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 CHROMA_HOST = os.getenv("CHROMA_HOST")    
