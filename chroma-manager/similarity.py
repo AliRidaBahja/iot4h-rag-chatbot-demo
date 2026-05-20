@@ -7,12 +7,10 @@ from chromadb import HttpClient
 import numpy as np 
 from langchain_chroma import Chroma
 
-load_dotenv("../.env")
-
+load_dotenv("../.env")                                                                                                                                                  # !! Remove in docker
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
-CHROMA_HOST = os.getenv("CHROMA_HOST")
-CHROMA_HOST="localhost"                                                                                                                                            # remove in docker!!!
-CHROMA_PORT = int(os.getenv("CHROMA_PORT"))  
+CHROMA_PORT = 8000  
+CHROMA_HOST = "localhost" 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") 
 COLLECTION_NAME = os.getenv("COLLECTION_NAME")
 EMBEDDING_MODEL= os.getenv("EMBEDDING_MODEL") 

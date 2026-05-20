@@ -11,10 +11,9 @@ from context_qa import static_qna_handler, PREDEFINED_QNA
 from db_utils import get_chat_history, AIMessage, HumanMessage, insert_message, get_current_q_index, increment_q_index
 from chromadb import HttpClient
 from langgraph.checkpoint.memory import MemorySaver
-from IPython.display import Image, display
 
 load_dotenv()
-load_dotenv("../../.env")  # remove in Docker
+# load_dotenv("../../.env")  # remove in Docker
 log_file_path = os.path.join(os.path.dirname(__file__), 'app.log')
 logging.basicConfig(
     level=logging.INFO,

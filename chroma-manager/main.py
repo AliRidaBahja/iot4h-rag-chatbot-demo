@@ -5,7 +5,7 @@ from openai import OpenAI
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
 from docx import Document as DocxDocument
-from langchain.schema import Document
+from langchain_core.documents import Document
 from dotenv import load_dotenv
 from chromadb import HttpClient
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -15,13 +15,11 @@ import re
 import pandas as pd
 import numpy as np 
 from similarity import custom_similarity_search
-# load_dotenv()   
 load_dotenv("../.env")                                                                                                                                                  # !! Remove in docker
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
-CHROMA_PORT = int(os.getenv("CHROMA_PORT"))  
-# CHROMA_HOST = os.getenv("CHROMA_HOST")
-CHROMA_HOST="localhost"                                                                                                                                            # remove in docker!!!
+CHROMA_PORT = 8000  
+CHROMA_HOST = "localhost"
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") 
 COLLECTION_NAME = os.getenv("COLLECTION_NAME")
 EMBEDDING_MODEL= os.getenv("EMBEDDING_MODEL") 
